@@ -1,3 +1,6 @@
+//
+// Flutterando - Programação Reativa em Flutter - Streams
+//
 import 'dart:async';
 
 //
@@ -5,11 +8,21 @@ import 'dart:async';
 
 main() {
   // Recebe um dado e avisa ou ouvintes
-  StreamController controller = StreamController();
+  // Broadcast vai permitir mais de um ouvinte para o mesmo StreamController
+  StreamController<String> controller = StreamController<String>.broadcast();
+  Stream<String> output = controller.stream;
+
+  // Map serve para transformar dado em outro
+  //  neste caso pega o String data e transforma em inteiro para retornar
+  Stream<int> output2 = controller.stream.map((data) => data.length);
 
   // Stream - responsavel por escutar
   // Ouvinte / Stream recebida / ouviente de Widget
-  controller.stream.listen((data) {
+  output.listen((String data) {
+    print(data);
+  });
+
+  output2.listen((int data) {
     print(data);
   });
 
